@@ -98,13 +98,13 @@
         <text class="action-text">偏好设置</text>
       </view>
     </view>
-	
-	<!-- 睡眠小知识 -->
-	<view class="tips-section" @click="handleTipClick">
-	  <text class="tips-label">你知道吗：</text>
-	  <text class="tips-content">{{ currentTip || '睡眠不足会影响记忆力、注意力和情绪' }}</text>
-	</view>
-	
+
+    <!-- 睡眠小知识 -->
+    <view class="tips-section" @click="handleTipClick">
+      <text class="tips-label">你知道吗：</text>
+      <text class="tips-content">{{ currentTip || '睡眠不足会影响记忆力、注意力和情绪' }}</text>
+    </view>
+
     <!-- ================= 设置模态框 (修复版) ================= -->
     <view v-if="showSettings" class="modal-overlay" @click="closeSettings">
       <view class="modal-content settings-modal" :class="themeClass" @click.stop>
@@ -112,7 +112,7 @@
           <text class="modal-title">偏好设置</text>
           <text class="close-btn" @click="closeSettings">×</text>
         </view>
-	
+
         <view class="modal-body">
           <!-- 睡眠时长设置 -->
           <view class="setting-item">
