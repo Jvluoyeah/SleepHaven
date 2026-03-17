@@ -4,14 +4,14 @@
       "path": "pages/index/index",
       "style": {
         "navigationBarTitleText": "安眠匣",
-        "navigationStyle": "custom"
+        "navigationStyle": "default"
       }
     },
     {
       "path": "pages/stats/stats",
       "style": {
         "navigationBarTitleText": "睡眠统计",
-        "navigationStyle": "custom",
+        "navigationStyle": "default",
         "navigationBarTextStyle": "black",
         "navigationBarBackgroundColor": "#f5f7fa"
       }
