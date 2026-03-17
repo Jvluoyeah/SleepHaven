@@ -3,7 +3,7 @@
     <!-- 头部 -->
     <view class="header">
       <text class="title">安眠匣</text>
-      <text class="subtitle">SleepHaven · 守护你的每一刻安宁</text>
+      <text class="subtitle">SleepHaven · 守护您的每一刻安宁</text>
     </view>
 
     <!-- 状态指示器 -->
@@ -99,6 +99,12 @@
       </view>
     </view>
 
+    <!-- 睡眠小知识 -->
+    <view class="tips-section" @click="handleTipClick">
+      <text class="tips-label">你知道吗：</text>
+      <text class="tips-content">{{ currentTip || '睡眠不足会影响记忆力、注意力和情绪' }}</text>
+    </view>
+
     <!-- ================= 设置模态框 (修复版) ================= -->
     <view v-if="showSettings" class="modal-overlay" @click="closeSettings">
       <view class="modal-content settings-modal" :class="themeClass" @click.stop>
@@ -186,6 +192,28 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { getStoredSleepTip, switchSleepTip } from '@/utils/storage.js';
+
+// 睡眠小贴士
+const currentTip = ref('');
+function initTip() {
+  currentTip.value = getStoredSleepTip();
+}
+onMounted(async () => {
+  initMarked();
+  loadData();
+  checkTodayRecord();
+  initTheme();
+  initTip(); // 初始化睡眠小贴士
+  
+  if (isMonitoring.value) {
+    startTimer();
+    registerWakeListeners();
+  }
+});
+function handleTipClick() {
+  currentTip.value = switchSleepTip();
+}
 
 // ================= 配置区域 =================
 const API_KEY = 'sk-bfsbrsldyyelpzptnerbobfvfzyvaqimvverfomvhwwthnln';
@@ -957,4 +985,27 @@ button::after {
 .markdown-body ul { padding-left: 20px; margin: 10px 0; }
 .markdown-body li { margin-bottom: 4px; }
 .markdown-body p { margin-bottom: 10px; }
+
+/* ================= 睡眠小贴士 ================= */
+.tips-section {
+  margin-top: 25px;
+  padding: 15px;
+  text-align: center;
+  background: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.tips-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.tips-content {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
 </style>
